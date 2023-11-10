@@ -1,0 +1,36 @@
+version: '3'
+
+silent: true
+
+tasks:
+
+  build:
+    desc: Builds in debug mode
+    cmds:
+      - cmd: cargo +stable build
+
+  clean:
+    desc: Cleans all targets
+    cmds:
+      - cmd: cargo clean
+
+  clippy:
+    desc: Runs clippy
+    cmds:
+      - cmd: cargo +stable clippy
+
+  clippy-all:
+    desc: Runs clippy for all targets
+    cmds:
+      - cmd: cargo +nightly clippy --all-targets
+
+  gen:
+    desc: Generates histogram
+    cmds:
+      - cmd: cargo +stable run
+      - cmd: convert -size 2000x600 data/benchmarks.svg data/benchmarks.png
+
+  test:
+    desc: Runs tests
+    cmds:
+      - cmd: cargo +stable test
