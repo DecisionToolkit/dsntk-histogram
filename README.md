@@ -7,9 +7,12 @@
 [![Contributor Covenant][cc-badge]][cc-url]
 
 [mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg
-[mit-url]: LICENSE-MIT
+[mit-url]: https://opensource.org/licenses/MIT
+[mit-license-url]: https://github.com/dsntk/dsntk-rs/blob/main/LICENSE-MIT
 [apache-badge]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[apache-url]: LICENSE-APACHE
+[apache-url]: https://www.apache.org/licenses/LICENSE-2.0
+[apache-license-url]: https://github.com/dsntk/dsntk-rs/blob/main/LICENSE
+[apache-notice-url]: https://github.com/dsntk/dsntk-rs/blob/main/NOTICE
 [cc-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [cc-url]: CODE_OF_CONDUCT.md
 
@@ -56,8 +59,8 @@ $ task gen
 
 Licensed under either of
 
-- [MIT license](https://opensource.org/licenses/MIT) ([LICENSE-MIT][mit-url]) or
-- [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) ([LICENSE-APACHE][apache-url])
+- [MIT license][mit-url] (see [LICENSE-MIT][mit-license-url]) or
+- [Apache License, Version 2.0][apache-url] (see [LICENSE][apache-license-url] and [NOTICE][apache-notice-url])
 
 at your option.
 
