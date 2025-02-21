@@ -17,7 +17,7 @@ tasks:
   clippy:
     desc: Runs clippy
     cmds:
-      - cmd: cargo +stable clippy
+      - cmd: cargo +stable clippy --all-targets
 
   clippy-all:
     desc: Runs clippy for all targets
@@ -28,7 +28,6 @@ tasks:
     desc: Generates histogram
     cmds:
       - cmd: cargo +stable run
-      - cmd: magick -size 2000x600 data/benchmarks.svg data/benchmarks.png
 
   test:
     desc: Runs tests
