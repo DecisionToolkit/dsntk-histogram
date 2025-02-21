@@ -1,4 +1,6 @@
-# DecisionToolkit performance report
+**dsntk** | DecisionToolkit
+
+# Performance report
 
 ## Version v0.1.0
 

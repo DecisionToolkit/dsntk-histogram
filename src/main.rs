@@ -62,7 +62,8 @@ fn main() {
 
   // Generate summary report.
   let mut buffer = String::new();
-  let _ = writeln!(&mut buffer, "# DecisionToolkit performance report\n");
+  let _ = writeln!(&mut buffer, "**dsntk** | DecisionToolkit\n");
+  let _ = writeln!(&mut buffer, "# Performance report\n");
   let _ = writeln!(&mut buffer, "## Version v{}\n", DSNTK_VERSION);
   let _ = writeln!(&mut buffer, "#### Total number of samples: {}\n", histogram.len());
   let _ = writeln!(&mut buffer, "| Statistic |   Time |");
