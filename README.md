@@ -15,6 +15,7 @@
 [apache-notice-url]: NOTICE
 [cc-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [cc-url]: CODE_OF_CONDUCT.md
+[repository-url]: https://github.com/DecisionToolkit/dsntk-histogram
 
 ## Overview
 
@@ -43,16 +44,9 @@ test compatibility::level_2::dmn_2_0007::_0003       ... bench:       2,043.08 n
 As a result, this application generates output files (also placed in [**data**](./data) directory): 
 
 - **README.md** - performance summary.
-- **benchmarks.hgrm** - histogram data file.
-- **benchmarks.svg** - histogram chart in SVG format.
+- **histogram.md** - histogram data file.
 
-To generate PNG file from SVG file, use the [ImageMagic](https://imagemagick.org/):
-
-```
-$ magick -size 2000x600 data/benchmarks.svg data/benchmarks.png
-```
-
-There is a [Task](https://taskfile.dev) command provided to automate generating the histogram in PNG format.
+There is a [Task](https://taskfile.dev) command provided to automate generating the histogram:
 
 ```
 $ task gen
@@ -69,7 +63,6 @@ at your option.
 
 ## Contribution
 
-Any contributions are greatly appreciated.
-If you would like to get involved, please don't hesitate to reach out to us.
+Any contributions to [**dsntk-histogram**][repository-url] are greatly appreciated.
 All contributions intentionally submitted for inclusion in the work by you,
 shall be dual licensed as above, without any additional terms or conditions.
