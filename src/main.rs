@@ -16,7 +16,7 @@ const INPUT_FILE_NAME: &str = "data/benchmarks.txt";
 const OUTPUT_MD_FILE_NAME: &str = "data/README.md";
 
 /// Name of the output file with histogram data.
-const OUTPUT_HGRM_FILE_NAME: &str = "data/benchmarks.hgrm";
+const OUTPUT_HISTOGRAM_FILE_NAME: &str = "data/histogram.md";
 
 /// Regular expression pattern for parsing single report line.
 const LINE_PATTERN: &str = r#"^test\s+(?P<name>\S+)[^:]+:\s+(?P<duration>[0-9,.]+)\s+(?P<unit>[^/]+)"#;
@@ -84,23 +84,13 @@ fn main() {
 
   // Generate histogram file.
   buffer.clear();
-  let _ = writeln!(
-    &mut buffer,
-    "{:>10}   {:>10}    {:>10}    {:>10}\n",
-    "Value", "Percentile", "TotalCount", "1/(1-Percentile)"
-  );
+  let _ = writeln!(&mut buffer, "| {:>8} | {:>10} | {:>10} |", "Time", "Percentile", "TotalCount");
+  let _ = writeln!(&mut buffer, "|---------:|-----------:|-----------:|");
   let mut total = 0_u64;
   for v in histogram.iter_recorded() {
     total += v.count_since_last_iteration();
     let perc = v.percentile() / 100.0;
-    let _ = writeln!(
-      &mut buffer,
-      "{:>10}   {:>10.6}    {:>10}    {:>10.2}",
-      v.value_iterated_to(),
-      perc,
-      total,
-      1.0 / (1.0 - perc)
-    );
+    let _ = writeln!(&mut buffer, "| {:>5} µs | {:>10.2} | {:>10} |", v.value_iterated_to(), perc * 100.0, total);
   }
-  fs::write(OUTPUT_HGRM_FILE_NAME, buffer).expect("writing .hgrm file failed");
+  fs::write(OUTPUT_HISTOGRAM_FILE_NAME, buffer).expect("writing .hgrm file failed");
 }
