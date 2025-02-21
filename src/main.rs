@@ -11,7 +11,7 @@ use std::fmt::Write;
 use std::fs;
 
 /// Name of the input file with measured benchmarks.
-const DSNTK_VERSION: &str = "0.0.4";
+const DSNTK_VERSION: &str = "0.1.0";
 
 /// Name of the input file with measured benchmarks.
 const INPUT_FILE_NAME: &str = "data/benchmarks.txt";
@@ -26,7 +26,7 @@ const OUTPUT_HGRM_FILE_NAME: &str = "data/benchmarks.hgrm";
 const OUTPUT_SVG_FILE_NAME: &str = "data/benchmarks.svg";
 
 /// Regular expression pattern for parsing single report line.
-const LINE_PATTERN: &str = r"test\s+(?P<name>[^\s+]+)[^:]+:\s+(?P<duration>[0-9,]+)\s+(?P<unit>[^/]+)";
+const LINE_PATTERN: &str = r"test\s+(?P<name>\S+)[^:]+:\s+(?P<duration>[0-9,.]+)\s+(?P<unit>[^/]+)";
 
 /// Flag indicating if benchmarks of calling external Java functions should be omitted.
 /// These benchmarks call external Java server and in fact do not measure strictly DSNTK performance.
@@ -67,7 +67,7 @@ fn generate_chart(data: Vec<Data>, max_value: f32) {
     .set_width(width)
     .set_height(height)
     .set_margins(top, right, bottom, left)
-    .add_title(format!("DSNTK performance histogram, version {DSNTK_VERSION}"))
+    .add_title(format!("DecisionToolkit performance histogram, version {DSNTK_VERSION}"))
     .add_view(&view)
     .add_axis_bottom(&x)
     .add_axis_left(&y)
@@ -83,20 +83,26 @@ fn main() {
   let input = fs::read_to_string(INPUT_FILE_NAME).expect("reading input file failed");
   let mut histogram = Histogram::<u64>::new(1).unwrap();
   for line in input.lines() {
-    if let Some(captures) = RE_LINE.captures(line) {
-      if let Some(name) = captures.name("name") {
-        if SKIP_EXTERNAL_JAVA_FUNCTIONS && name.as_str().contains("dmn_3_0076") {
-          continue;
-        }
-        if let Some(duration) = captures.name("duration") {
-          if let Some(unit) = captures.name("unit") {
-            let d = duration.as_str().replace(',', "").parse::<u64>().unwrap();
-            let value = match unit.as_str() {
-              "ns" => d,
-              other => panic!("unexpected unit: '{}'", other),
-            };
-            histogram += value / 1000;
-          }
+    let Some(captures) = RE_LINE.captures(line) else {
+      println!("input line was not matched: {}", line);
+      return;
+    };
+    if let Some(name) = captures.name("name") {
+      if SKIP_EXTERNAL_JAVA_FUNCTIONS && name.as_str().contains("dmn_3_0076") {
+        continue;
+      }
+      if let Some(duration) = captures.name("duration") {
+        if let Some(unit) = captures.name("unit") {
+          let duration_str = duration.as_str().replace(',', "");
+          let Ok(d) = duration_str.parse::<f64>() else {
+            println!("duration not parsed: {}", duration_str);
+            return;
+          };
+          let value = match unit.as_str() {
+            "ns" => d,
+            other => panic!("unexpected unit: '{}'", other),
+          };
+          histogram += (value.round() as u64) / 1000;
         }
       }
     }

@@ -28,7 +28,7 @@ tasks:
     desc: Generates histogram
     cmds:
       - cmd: cargo +stable run
-      - cmd: convert -size 2000x600 data/benchmarks.svg data/benchmarks.png
+      - cmd: magick -size 2000x600 data/benchmarks.svg data/benchmarks.png
 
   test:
     desc: Runs tests
