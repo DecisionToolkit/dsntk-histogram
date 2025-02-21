@@ -2,9 +2,9 @@
 
 # Performance report
 
-## Version v0.1.0
+## v0.1.0
 
-#### Total number of samples: 3527
+### Total number of samples: 3527
 
 | Statistic |   Time |
 |----------:|-------:|
@@ -13,7 +13,7 @@
 |    StdDev |  20 µs |
 |       Max | 927 µs |
 
-#### Percentage of samples executed in less than specified time
+### Percentage of samples executed in less than specified time
 
 | Percentage |   Time | Samples |
 |-----------:|-------:|:--------|
